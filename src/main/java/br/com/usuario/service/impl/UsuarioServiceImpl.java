@@ -38,10 +38,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario inserir(UsuarioDto usuarioDto) {
+        buscarPorEmail(usuarioDto.getEmail());
         String senha = usuarioDto.getSenha();
-        System.out.println(senha);
         String senhaCriptografada = passwordEncoder.encode(senha);
-        System.out.println(senhaCriptografada);
         usuarioDto.setSenha(senhaCriptografada);
         Usuario usuario = modelMapper.map(usuarioDto, Usuario.class);
         return usuarioRepository.save(usuario);
